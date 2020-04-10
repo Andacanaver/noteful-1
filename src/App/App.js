@@ -17,7 +17,14 @@ class App extends Component {
       <div className='sidebar'>
         <Sidebar>
           <Route exact path='/' component={MainSidebar} />
-          <Route path='/folder' component={FolderSidebar} />
+          <Route path='/folder' 
+                render ={(routeProps =>
+                  <FolderSidebar 
+                  folder={this.state.folder.find(folder => folder.id === routeProps.match.params.folderId)} 
+                />
+              )
+            }
+          />
         </Sidebar>
       </div>
     )
@@ -28,7 +35,14 @@ class App extends Component {
       <div className='main'>
         <Main>
           <Route exact path='/' component={MainMain} />
-          <Route path='/folder' component={FolderMain} />
+          <Route 
+            path='/folder' 
+            render= {(routeProps =>
+              <FolderMain 
+                folder={this.state.folder.find(folder => folder.id === routeProps.match.params.folderId)} 
+              />)
+            } 
+          />
         </Main>
       </div>
     )

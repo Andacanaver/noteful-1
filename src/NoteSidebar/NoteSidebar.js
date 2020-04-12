@@ -1,13 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export default function NoteSidebar(props) {
     return (
-        <div>
-            <button>Go Back</button>
-            <div>
-                Current Folder
-            </div>
+        <div className='NoteSidebar'>
+            <button 
+                type='button'
+                onClick={() => props.history.goBack()}>Go Back
+            </button>
+            {props.folder && (
+                <h3 className='NoteSidebar__folder'>
+                    {props.folder.name}
+                </h3>
+            )}
         </div>
     )
+}
+
+NoteSidebar.defaultProps = {
+    history: {
+        goBack: () => {}
+    }
 }

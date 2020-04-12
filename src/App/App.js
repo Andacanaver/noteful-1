@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import MainSidebar from '../MainSidebar/MainSidebar';
-import MainMain from '../MainMain/MainMain';
-import FolderSidebar from '../FolderSidebar/FolderSidebar';
-import FolderMain from '../FolderMain/FolderMain';
+import MainNotes from '../MainNotes/MainNotes';
+import Sidebar from '../Sidebar/Sidebar';
+import NoteSidebar from '../NoteSidebar/NoteSidebar';
+import NoteComplete from '../NoteComplete/NoteComplete';
 import dummyStore from '../dummy-store';
+import {getNotesForFolder, findNote, findFolder } from '../notehelpers';
+import './App.css';
 
 class App extends Component {
   state = {
@@ -12,38 +14,74 @@ class App extends Component {
     folders: []
   };
 
+  componentDidMount() {
+    // fake date loading from API call
+    setTimeout(() => this.setState(dummyStore), 600);
+  }
+
   renderSidebars() {
+    const {notes, folders} = this.state;
     return(
       <div className='sidebar'>
-        <Sidebar>
-          <Route exact path='/' component={MainSidebar} />
-          <Route path='/folder' 
-                render ={(routeProps =>
-                  <FolderSidebar 
-                  folder={this.state.folder.find(folder => folder.id === routeProps.match.params.folderId)} 
-                />
-              )
-            }
-          />
-        </Sidebar>
+        {['/', '/folder/:folderId'].map(path => (
+          <Route 
+          exact
+          path={path}
+          render= {routeProps => (
+            <Sidebar 
+            folders={folders}
+            notes={notes}
+            {...routeProps}
+             />
+          )} 
+        />
+        ))}
+{/* I know this is rendering the Note specific Sidebar, but I dont understand how */}
+        <Route 
+            path='/notecomplete/:noteId'
+            render={routeProps => {
+              const {noteId} = routeProps.match.params;
+              const note = findNote(notes, noteId) || {};
+              const folder = findFolder(folders, note.folderId);
+              return <NoteSidebar {...routeProps} folder={folder} />;
+            }} />
       </div>
     )
   }
 
+  //renders the "main" components - all of the notes in one place. 
   renderMain() {
+    const {notes, folders} = this.state;
     return (
       <div className='main'>
-        <Main>
-          <Route exact path='/' component={MainMain} />
+        {['/', '/folder/:folderId'].map(path => (
           <Route 
-            path='/folder' 
-            render= {(routeProps =>
-              <FolderMain 
-                folder={this.state.folder.find(folder => folder.id === routeProps.match.params.folderId)} 
-              />)
-            } 
+            exact
+            key={path}
+            path={path}
+            render={routeProps => {
+              const {folderId} = routeProps.match.params;
+              const notesForFolder = getNotesForFolder(
+                notes,
+                folderId
+              );
+              return (
+                <MainNotes 
+                  {...routeProps}
+                  notes={notesForFolder} 
+                />
+              );
+            }} 
           />
-        </Main>
+        ))}
+{/* Renders the complete note, with the content inside -- used in the Note component */}
+        <Route 
+          path='/notecomplete/:noteId'
+          render={routeProps => {
+            const {noteId} = routeProps.match.params;
+            const note = findNote(notes, noteId);
+            return <NoteComplete {...routeProps} note={note} />;
+          }} />  
       </div>
     )
   }

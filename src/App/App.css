@@ -1,0 +1,25 @@
+.App {
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "header header header header"
+        "sidebar . main main";
+}
+
+.App__header {
+    text-decoration: none;
+    grid-area: header;
+}
+
+.App__sidebars {
+    grid-area: sidebar;
+}
+
+.App__main {
+    grid-area: main;
+}
+
+h1 {
+    padding: 10px;
+}

@@ -1,22 +1,26 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function FolderSidebar(props) {
+//highlighted folder is selected
+export default function Sidebar(props) {
     return (
         <div className='folder__sidebar'>
             <ul>
                 {props.folders.map(folder =>
                     <li key={folder.id}>
-                        <NavLink 
+                        <Link 
                             className='FolderSidebar__folder-link'
                             to={`/folder/${folder.id}`}>
-                            <span> {props.notes, folder.id} </span>
-                        </NavLink>
-                    </li>)}
+                            {folder.name}
+                        </Link>
+                    </li>
+                )}
             </ul>
-
+            <button>Go Back</button>
         </div>
     );
 }
 
-export default FolderSidebar
+Sidebar.defaultProps = {
+    folders: []
+}

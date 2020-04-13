@@ -20,7 +20,9 @@ export default function MainNotes(props) {
                 )}
             </ul>
             <div>
-                <button type='button'>
+                <button 
+                    className='add-note__button'
+                    type='button'>
                     Add Note
                 </button>
             </div>

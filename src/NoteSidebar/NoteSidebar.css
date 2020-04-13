@@ -1,0 +1,14 @@
+h3  {
+    padding: 20px;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: 36px;
+    color: white;
+    text-align: center;
+}
+
+.goBack__button {
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+}

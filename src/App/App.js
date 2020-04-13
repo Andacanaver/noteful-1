@@ -36,7 +36,8 @@ class App extends Component {
           )} 
         />
         ))}
-{/* I know this is rendering the Note specific Sidebar, but I dont understand how */}
+{/* I know this is rendering the Note specific Sidebar, but I dont understand how 
+I only want to render this component when I click on a specific note */}
         <Route 
             path='/notecomplete/:noteId'
             render={routeProps => {

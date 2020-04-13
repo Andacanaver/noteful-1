@@ -1,5 +1,6 @@
 import React from 'react';
 import Note from '../Note/Note';
+import './NoteComplete.css';
 
 export default function NoteComplete(props) {
     return (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Sidebar.css';
 
 //highlighted folder is selected
 export default function Sidebar(props) {
@@ -16,7 +17,7 @@ export default function Sidebar(props) {
                     </li>
                 )}
             </ul>
-            <button>Go Back</button>
+            {/* <button>Go Back</button> */}
         </div>
     );
 }

@@ -9,8 +9,8 @@ import './Note.css';
 //Delete note button
 
 function deleteNote(noteId, callback) {
-    console.log(`http://localhost9090/notes/${noteId}`);
-    fetch(`http://localhost9090/notes/${noteId}`, {
+    console.log(`http://localhost:9090/notes/${noteId}`);
+    fetch(`http://localhost:9090/notes/${noteId}`, {
         method: 'DELETE',
         headers: {
             'content-type': 'application/json'
@@ -25,7 +25,7 @@ function deleteNote(noteId, callback) {
         return res.json()
     })
     .then (() => {
-        this.context.deleteNote(noteId)
+        callback(noteId)
         //this.props.onDeleteNote(noteId)
     })
     .catch(error => {

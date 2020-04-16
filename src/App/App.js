@@ -16,9 +16,12 @@ class App extends Component {
 
   //refactor this when we have made the API call so it finds the deleted note
   //by id and then updates the array without the deleted note  
-  deleteNote = note => {
+  deleteNote = noteId => {
+    const newNotes = this.state.notes.filter(note =>
+      note.id !== noteId
+    )
     this.setState({
-      notes: [...this.state.notes, note]
+      notes: newNotes
     })
   }
 
@@ -26,8 +29,8 @@ class App extends Component {
     // fake date loading from API call
     //setTimeout(() => this.setState(dummyStore), 600);
     Promise.all([
-      fetch('http://localhost:9090/folders'),
-      fetch('http://localhost:9090/notes')
+      fetch('http://localhost:9090/notes'),
+      fetch('http://localhost:9090/folders')
     ], {
       method: 'GET',
       headers: {

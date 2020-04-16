@@ -3,3 +3,7 @@
     color: white;
     text-decoration: none;
 }
+
+.add-folder__button {
+    padding: 10px;
+}

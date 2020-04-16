@@ -1,15 +1,29 @@
 import React from 'react';
 import Note from '../Note/Note';
 import './MainNotes.css';
+import NotesContext from '../NotesContext';
+import { getNotesForFolder } from '../notehelpers'
 
 //lists all of the notes from all of the folders, clicking on a note will open that note
 //and display its contents
 //Add note button at bottom
-export default function MainNotes(props) {
+export default class MainNotes extends React.Component {
+    static defaultProps = {
+        match: {
+            params: {}
+        }
+    }
+    
+    static contextType = NotesContext
+
+    render() {
+    const { folderId } = this.props.match.params
+    const { notes: [] } = this.context
+    const notesForFolder = getNotesForFolder(this.context.notes, folderId)
     return (
         <section className='MainNotes'>
             <ul>
-                {props.notes.map(note =>
+                {notesForFolder.map(note =>
                     <li className='note__list' key={note.id}>
                         <Note 
                             id={note.id}
@@ -28,8 +42,5 @@ export default function MainNotes(props) {
             </div>
         </section>
     )
-}
-
-MainNotes.defaultProps ={
-    notes: []
+    }
 }

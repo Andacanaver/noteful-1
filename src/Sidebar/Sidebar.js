@@ -1,13 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.css';
+import NotesContext from '../NotesContext';
 
 //highlighted folder is selected
-export default function Sidebar(props) {
+export default class Sidebar extends React.Component {
+    static defaultProps = {
+        match: {
+            params: {}
+        },
+        folders: []
+    }
+
+    static contextType = NotesContext
+
+    render() {
+    const { folders: [], notes: [] } = this.context
     return (
         <div className='folder__sidebar'>
             <ul>
-                {props.folders.map(folder =>
+                {this.context.folders.map(folder =>
                     <li key={folder.id}>
                         <Link 
                             className='FolderSidebar__folder-link'
@@ -17,11 +29,8 @@ export default function Sidebar(props) {
                     </li>
                 )}
             </ul>
-            {/* <button>Go Back</button> */}
+            <button className='add-folder__button'>Add Folder</button>
         </div>
     );
-}
-
-Sidebar.defaultProps = {
-    folders: []
+    }
 }

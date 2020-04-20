@@ -113,6 +113,8 @@ I only want to render this component when I click on a specific note */}
       notes: this.state.notes,
       folders: this.state.folders,
       deleteNote: this.deleteNote,
+      addNote: this.addNote,
+      addFolder: this.addFolder,
     };
     return (
       <NotesContext.Provider value={contextValue}>

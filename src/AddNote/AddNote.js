@@ -24,6 +24,7 @@ export default class AddNote extends React.Component {
     }
 
     handleSubmit(e) {
+        console.log(this.context.addNote);
         e.preventDefault();
         const { name, folderId, content } = e.target;
         const note = {
@@ -34,6 +35,7 @@ export default class AddNote extends React.Component {
 
         fetch(`http://localhost:9090/notes`, {
             method: 'POST',
+            body: JSON.stringify(note),
             headers: {
                 'content-type': 'application-json'
             }
@@ -49,7 +51,7 @@ export default class AddNote extends React.Component {
             name.value = '';
             content.value = '';
             folderId.value = '';
-            this.context.addNote(data);
+            //this.context.addNote(data);
             this.setState({ data });
             this.props.history.push('/', data);
         })
@@ -61,7 +63,7 @@ export default class AddNote extends React.Component {
         return (
             <div>
                 <form 
-                    onSubmit={this.handleSubmit}
+                    onSubmit={e => this.handleSubmit(e)}
                 >
                     <legend><h2>Add Note</h2></legend>
                     <label
@@ -70,7 +72,7 @@ export default class AddNote extends React.Component {
                     </label>
                     <input
                         type='text'
-                        name='content'
+                        name='name'
                         id='content'
                         defaultValue=''
                         onChange={this.handleChange}
@@ -82,7 +84,7 @@ export default class AddNote extends React.Component {
                         onChange={this.handleChange}
                     >
                     <option>Select a folder</option>
-                        {folders.map(folder => (<option key={folder.id} value={folder.id}>{folder.folder_name}</option>))}
+                        {folders.map(folder => (<option key={folder.id} value={folder.id}>{folder.name}</option>))}
                     </select>
                     <button
                         type='submit'

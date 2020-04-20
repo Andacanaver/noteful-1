@@ -6,13 +6,9 @@ import NotesContext from '../NotesContext';
 export default class AddFolder extends React.Component {
     static contextType = NotesContext
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: {
-                value: ''
-            }
-        }
+    state = {
+        name: '',
+        error: null,
     }
 
     handleChange = e => {
@@ -21,9 +17,10 @@ export default class AddFolder extends React.Component {
         console.log(this.state)
     }
 
-    //looks as though this is working (based on the server)
+    //becomes a GET request for some reason - trying to figure out why
     //now need to make it show up on the page
     handleSubmit = (e) => {
+        console.log(name.value);
         e.preventDefault();
         const { name } = e.target;
         const folder = {
@@ -32,6 +29,7 @@ export default class AddFolder extends React.Component {
 
         fetch(`http://localhost:9090/folders`, {
             method: 'POST',
+            body: JSON.stringify(folder),
             headers: {
                 'content-type': 'application/json'
             }
@@ -39,18 +37,18 @@ export default class AddFolder extends React.Component {
         .then(res => {
             if (!res.ok) {
                 return res.json().then(error => {
-                    throw error
-                })
+                    throw error;
+                });
             }
-            return res.json()
+            return res.json();
         })
         .then(data => {
-            name.value= ''
-            this.context.addFolder(data)
-            this.props.history.push('/')
+            name.value= '';
+            this.context.addFolder(data);
+            this.props.history.push('/');
         })
         .catch(error => {
-            this.setState({ error: error })
+            this.setState({ error: error });
         })
     }
 

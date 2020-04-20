@@ -5,6 +5,8 @@ import Sidebar from '../Sidebar/Sidebar';
 import NoteSidebar from '../NoteSidebar/NoteSidebar';
 import NoteComplete from '../NoteComplete/NoteComplete';
 import NotesContext from '../NotesContext';
+import AddFolder from '../AddFolder/AddFolder'
+import AddNote from '../AddNote/AddNote'
 import {getNotesForFolder, findNote, findFolder } from '../notehelpers';
 import './App.css';
 
@@ -26,8 +28,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // fake date loading from API call
-    //setTimeout(() => this.setState(dummyStore), 600);
     Promise.all([
       fetch('http://localhost:9090/notes'),
       fetch('http://localhost:9090/folders')
@@ -69,6 +69,7 @@ I only want to render this component when I click on a specific note */}
         <Route 
             path='/notecomplete/:noteId'
             component={NoteSidebar} />
+        <Route />
       </div>
     )
   }
@@ -89,6 +90,8 @@ I only want to render this component when I click on a specific note */}
         <Route 
           path='/notecomplete/:noteId'
           component={NoteComplete} /> 
+        <Route path='/add-folder' component={AddFolder} />
+        <Route path='/add-note' component={AddNote} />
       </div>
     )
   }

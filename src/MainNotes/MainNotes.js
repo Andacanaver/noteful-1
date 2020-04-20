@@ -3,6 +3,7 @@ import Note from '../Note/Note';
 import './MainNotes.css';
 import NotesContext from '../NotesContext';
 import { getNotesForFolder } from '../notehelpers'
+import { Link } from 'react-router-dom'
 
 //lists all of the notes from all of the folders, clicking on a note will open that note
 //and display its contents
@@ -34,11 +35,11 @@ export default class MainNotes extends React.Component {
                 )}
             </ul>
             <div>
-                <button 
-                    className='add-note__button'
-                    type='button'>
-                    Add Note
-                </button>
+            <Link
+                id='add-note-link'
+                to='/add-note'
+            > Add Note
+            </Link>
             </div>
         </section>
     )

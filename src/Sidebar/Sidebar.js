@@ -29,7 +29,11 @@ export default class Sidebar extends React.Component {
                     </li>
                 )}
             </ul>
-            <button className='add-folder__button'>Add Folder</button>
+            <Link
+                id='add-folder-link'
+                to='/add-folder'
+            > Add Folder
+            </Link>
         </div>
     );
     }

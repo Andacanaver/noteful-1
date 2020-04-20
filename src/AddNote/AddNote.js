@@ -51,11 +51,14 @@ export default class AddNote extends React.Component {
             name.value = '';
             content.value = '';
             folderId.value = '';
-            //this.context.addNote(data);
+            this.context.addNote(data);
             this.setState({ data });
             this.props.history.push('/', data);
         })
     }
+
+    //notes are not being named or going into any specific folder
+    //this.context.addNote(data) is NOT working, which is why there is not data in the notes
 
     render() {
         const folders = this.context.folders
@@ -73,10 +76,24 @@ export default class AddNote extends React.Component {
                     <input
                         type='text'
                         name='name'
-                        id='content'
+                        id='name'
                         defaultValue=''
                         onChange={this.handleChange}
                     />
+
+                    <label
+                        htmlFor='content'
+                    ><h4>Note Content</h4>
+                    </label>
+                    <input
+                        type='text'
+                        name='content'
+                        id='content'
+                        defaultValue=''
+                        onChange={this.handleChange}
+                    /> 
+                    <br />
+
                     <select
                         id='folderId'
                         name='folderId'
@@ -86,6 +103,7 @@ export default class AddNote extends React.Component {
                     <option>Select a folder</option>
                         {folders.map(folder => (<option key={folder.id} value={folder.id}>{folder.name}</option>))}
                     </select>
+                    <br />
                     <button
                         type='submit'
                         id='submit-btn'
@@ -93,7 +111,21 @@ export default class AddNote extends React.Component {
                     Submit
                     </button>
                 </form>
+
+            {/* <button 
+                className='goBack__button'
+                type='button'
+                onClick={() => props.history.goBack()}>Go Back
+            </button> */}
+
             </div>
         )
+    }
+}
+
+AddNote.defaultProps = {
+    name: '',
+    history: {
+        goBack: () => {}
     }
 }

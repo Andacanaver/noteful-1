@@ -19,8 +19,8 @@ export default class AddFolder extends React.Component {
 
     //becomes a GET request for some reason - trying to figure out why
     //now need to make it show up on the page
+    //looks like its posting a blank note when I try to add a folder
     handleSubmit = (e) => {
-        console.log(name.value);
         e.preventDefault();
         const { name } = e.target;
         const folder = {
@@ -43,7 +43,7 @@ export default class AddFolder extends React.Component {
             return res.json();
         })
         .then(data => {
-            name.value= '';
+            name=name.value;
             this.context.addFolder(data);
             this.props.history.push('/');
         })
@@ -71,7 +71,18 @@ export default class AddFolder extends React.Component {
                         //disabled={this.state.formValid === false}
                     > Submit
                     </button>    
+                    {/* <input
+                        type='submit'
+                        id='submit-button'
+                        value='Submit' 
+                    /> */}
                 </form>
+
+            {/* <button 
+                className='goBack__button'
+                type='button'
+                onClick={() => props.history.goBack()}>Go Back
+            </button> */}
             </div>
         )
     }

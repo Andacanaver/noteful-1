@@ -27,6 +27,18 @@ class App extends Component {
     })
   }
 
+  addFolder = folder => {
+    this.setState({
+      folders: [...this.state.folders, folder],
+    })
+  }
+
+  addNote = note => {
+    this.setState({
+      notes: [...this.state.notes, note],
+    })
+  }
+
   componentDidMount() {
     Promise.all([
       fetch('http://localhost:9090/notes'),
